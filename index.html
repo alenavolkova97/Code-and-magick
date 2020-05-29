@@ -181,6 +181,27 @@
   </div>
 </template>
 
+<script>
+  var fireballSize = 22;
+  var wizardSpeed = 3;
+  var wizardWidth = 70;
+
+  function getFireballSpeed (isWindFromLeft) {
+    return isWindFromLeft ? 5 : 2;
+  }
+
+  function getWizardHeight () {  //можно было через переменную wizardHeight = 1.337 * wizardWidth; ???
+    return 1.337 * wizardWidth;
+  }
+
+  function getWizardX (gameFieldWidth) {
+    return (gameFieldWidth - wizardWidth) / 2;
+  }
+
+  function getWizardY (gameFieldHeight) {
+    return gameFieldHeight / 3;
+  }
+</script>
 <script src="js/game.js"></script>
 
 </body>
