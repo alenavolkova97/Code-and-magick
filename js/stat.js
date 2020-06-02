@@ -8,6 +8,13 @@ var ARC1_RADIUS = 52.5;
 var ARC2_RADIUS = 40;
 var ARC_SHIFT = 63;
 
+var GAP = 10;
+var TEXT_INTRO_HEIGHT = 60;
+var TEXT_NAME_HEIGHT = 20;
+var NUMBER_HEIGHT = 20;
+var BAR_WIDTH = 40;
+var BAR_HEIGHT = CLOUD_HEIGHT - 2 * GAP - TEXT_INTRO_HEIGHT - 2 * GAP - NUMBER_HEIGHT - GAP - GAP - TEXT_NAME_HEIGHT - 2 * GAP;
+
 var renderCloud = function (ctx, color, cloudShift) {
   ctx.fillStyle = color;
   ctx.beginPath();
@@ -28,4 +35,8 @@ var renderCloud = function (ctx, color, cloudShift) {
 window.renderStatistics = function (ctx) {
   renderCloud(ctx, 'rgba(0, 0, 0, 0.7)', 10);
   renderCloud(ctx, '#ffffff', 0);
+
+  ctx.fillStyle = 'black';
+  ctx.fillRect(CLOUD_X + 4 * GAP, CLOUD_Y + CLOUD_HEIGHT - 2 * GAP - TEXT_NAME_HEIGHT - GAP, BAR_WIDTH, BAR_HEIGHT);
+  ctx.fillText('Вы', 150, y);
 };
