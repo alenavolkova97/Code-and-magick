@@ -49,17 +49,7 @@ var showIntro = function (ctx, array) {
   }
 };
 
-window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, 'rgba(0, 0, 0, 0.7)', 10);
-  renderCloud(ctx, '#ffffff', 0);
-
-  ctx.font = '16px PT Mono';
-  ctx.fillStyle = 'black';
-
-  var intro = ['Ура, Вы победили!', 'Список результатов:'];
-
-  showIntro(ctx, intro);
-
+var showStatBars = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var j = 0; j < players.length; j++) {
@@ -74,4 +64,18 @@ window.renderStatistics = function (ctx, players, times) {
     ctx.fillStyle = 'black';
     ctx.fillText(players[j], CLOUD_X + 4 * GAP + j * (BAR_WIDTH + COLUMN_GAP), CLOUD_Y + CLOUD_HEIGHT - 1.5 * GAP);
   }
+};
+
+window.renderStatistics = function (ctx, players, times) {
+  renderCloud(ctx, 'rgba(0, 0, 0, 0.7)', 10);
+  renderCloud(ctx, '#ffffff', 0);
+
+  ctx.font = '16px PT Mono';
+  ctx.fillStyle = 'black';
+
+  var intro = ['Ура, Вы победили!', 'Список результатов:'];
+
+  showIntro(ctx, intro);
+
+  showStatBars(ctx, players, times);
 };
