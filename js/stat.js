@@ -43,6 +43,11 @@ var getMaxElement = function (array) {
   return maxElement;
 };
 
+var getRandomNumber = function (maxRandomNumber) {
+  var randomNumber = Math.round(Math.random() * maxRandomNumber);
+  return randomNumber;
+};
+
 var showIntro = function (ctx, array) {
   for (var i = 0; i < array.length; i++) {
     ctx.fillText(array[i], CLOUD_X + 2 * GAP, CLOUD_Y + 3 * GAP + i * (FONT_GAP));
@@ -52,17 +57,14 @@ var showIntro = function (ctx, array) {
 var showStatBars = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
-  for (var j = 0; j < players.length; j++) {
-    ctx.fillText(Math.round(times[j]), CLOUD_X + 4 * GAP + j * (BAR_WIDTH + COLUMN_GAP), CLOUD_Y + CLOUD_HEIGHT - 1.5 * GAP - TEXT_NAME_HEIGHT - GAP - ((BAR_HEIGHT * times[j]) / maxTime) - GAP);
-    if (players[j] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    } else {
-      var saturate = Math.floor(Math.random() * 101) + '%';
-      ctx.fillStyle = 'hsl(240,' + saturate + ', 50%)';
-    }
-    ctx.fillRect(CLOUD_X + 4 * GAP + j * (BAR_WIDTH + COLUMN_GAP), CLOUD_Y + CLOUD_HEIGHT - 1.5 * GAP - TEXT_NAME_HEIGHT - GAP, BAR_WIDTH, -((BAR_HEIGHT * times[j]) / maxTime));
+  for (var i = 0; i < players.length; i++) {
+    var coordX = CLOUD_X + 4 * GAP + i * (BAR_WIDTH + COLUMN_GAP);
+    var namesCoordY = CLOUD_Y + CLOUD_HEIGHT - 1.5 * GAP;
+    ctx.fillText(Math.round(times[i]), coordX, namesCoordY - TEXT_NAME_HEIGHT - GAP - ((BAR_HEIGHT * times[i]) / maxTime) - GAP);
+    ctx.fillStyle = (players[i] === 'Вы') ? 'rgba(255, 0, 0, 1)' : 'hsl(240,' + getRandomNumber(100) + '%, 50%)';
+    ctx.fillRect(coordX, namesCoordY - TEXT_NAME_HEIGHT - GAP, BAR_WIDTH, -((BAR_HEIGHT * times[i]) / maxTime));
     ctx.fillStyle = 'black';
-    ctx.fillText(players[j], CLOUD_X + 4 * GAP + j * (BAR_WIDTH + COLUMN_GAP), CLOUD_Y + CLOUD_HEIGHT - 1.5 * GAP);
+    ctx.fillText(players[i], coordX, namesCoordY);
   }
 };
 
