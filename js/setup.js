@@ -40,9 +40,10 @@ userDialog.classList.remove('hidden');
 var orderVersion = getRandomNumber();
 
 for (var i = 0; i < WIZARDS_QUANTITY; i++) {
+  var wizardNameIndex = getRandomNumber(WIZARD_NAMES.length - 1);
   wizards.push({
-    name: (orderVersion === 0) ? WIZARD_NAMES[getRandomNumber(WIZARD_NAMES.length - 1)] + ' ' + WIZARD_SURNAMES[getRandomNumber(WIZARD_SURNAMES.length - 1)] : WIZARD_SURNAMES[getRandomNumber(WIZARD_SURNAMES.length - 1)] + ' ' + WIZARD_NAMES[getRandomNumber(WIZARD_NAMES.length - 1)],
-    // не совсем поняла, нужно рандомом выбирать только имя (а фамилию брать под тем же индексом) или и имя и фамилию (сделала и имя и фамилию)
+    name: (orderVersion === 0) ? WIZARD_NAMES[wizardNameIndex] + ' ' + WIZARD_SURNAMES[wizardNameIndex] : WIZARD_SURNAMES[wizardNameIndex] + ' ' + WIZARD_NAMES[wizardNameIndex],
+    // не совсем поняла, нужно рандомом выбирать только имя (а фамилию брать под тем же индексом) или и имя и фамилию (сделала первый вариант)
     coatColor: WIZARD_COAT_COLORS[getRandomNumber(WIZARD_COAT_COLORS.length - 1)],
     eyesColor: WIZARD_EYES_COLORS[getRandomNumber(WIZARD_EYES_COLORS.length - 1)]
   });
