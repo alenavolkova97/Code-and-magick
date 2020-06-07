@@ -44,7 +44,7 @@ var getMaxElement = function (array) {
 };
 
 var getRandomNumber = function (maxRandomNumber) {
-  var randomNumber = Math.round(Math.random() * maxRandomNumber);
+  var randomNumber = Math.round(Math.random() * (maxRandomNumber || 1));
   return randomNumber;
 };
 
