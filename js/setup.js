@@ -1,10 +1,14 @@
 'use strict';
 
+// константы
+
 var WIZARDS_QUANTITY = 4;
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+
+// переменные
 
 var userDialog = document.querySelector('.setup');
 var similarWizardsDialog = document.querySelector('.setup-similar');
@@ -12,9 +16,27 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
   .content
   .querySelector('.setup-similar-item');
 var similarWizardsList = document.querySelector('.setup-similar-list');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = document.querySelector('.setup-close');
+var setupUserName = userDialog.querySelector('.setup-user-name');
+
+// объявления функций
 
 var init = function () {
-  userDialog.classList.remove('hidden');
+  setupOpen.addEventListener('click', function () {
+    openUserDialog();
+  });
+
+  setupOpen.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      openUserDialog();
+    }
+  });
+
+  setupClose.addEventListener('click', function () {
+    closeUserDialog();
+  });
+
   similarWizardsDialog.classList.remove('hidden');
   drawWizards();
 };
@@ -54,5 +76,28 @@ var drawWizards = function () {
   }
   similarWizardsList.appendChild(fragment);
 };
+
+var openUserDialog = function () {
+  userDialog.classList.remove('hidden');
+
+  document.addEventListener('keydown', userDialogEscPressHandler);
+};
+
+var closeUserDialog = function () {
+  userDialog.classList.add('hidden');
+
+  document.removeEventListener('keydown', userDialogEscPressHandler);
+};
+
+// объявления обработчиков
+
+var userDialogEscPressHandler = function (evt) {
+  if (evt.key === 'Escape' && document.activeElement !== setupUserName) {
+    evt.preventDefault();
+    userDialog.classList.add('hidden');
+  }
+};
+
+// вызовы функций
 
 init();
