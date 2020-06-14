@@ -21,11 +21,9 @@ var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 var userNameInput = userDialog.querySelector('.setup-user-name');
 var form = document.querySelector('.setup-wizard-form');
-var wizardCoatElement = document.querySelector('#wizard-coat');
+var wizardSetup = document.querySelector('.setup-player');
 var wizardCoatColorInput = document.querySelector('input[name="coat-color"]');
-var wizardEyesElement = document.querySelector('#wizard-eyes');
 var wizardEyesColorInput = document.querySelector('input[name="eyes-color"]');
-var wizardFireballWrap = document.querySelector('.setup-fireball-wrap');
 var wizardFireballColorInput = document.querySelector('input[name="fireball-color"]');
 
 var MIN_NAME_LENGTH = userNameInput.minLength;
@@ -37,22 +35,21 @@ var init = function () {
   setupOpen.addEventListener('click', function () {
     openUserDialog();
   });
-
   setupOpen.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       openUserDialog();
     }
   });
-
   setupClose.addEventListener('click', function () {
     closeUserDialog();
   });
-
   similarWizardsDialog.classList.remove('hidden');
   drawWizards();
+  userNameInput.addEventListener('input', userNameInputChangeHandler);
+  wizardSetup.addEventListener('click', wizardSetupClickHandler);
 };
 
-var getRandomNumber = function (maxRandomNumber) { // оставила в этом файле, так как ругается eslint, если ее тут нет
+var getRandomNumber = function (maxRandomNumber) { // временно
   var randomNumber = Math.round(Math.random() * (maxRandomNumber || 1));
   return randomNumber;
 };
@@ -100,6 +97,16 @@ var closeUserDialog = function () {
   document.removeEventListener('keydown', userDialogEscPressHandler);
 };
 
+var rgbToHex = function (rgb) { // ?
+  var hexDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+
+  var hex = function (x) {
+    return isNaN(x) ? '00' : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+  };
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+};
+
 // объявления обработчиков
 
 var userDialogEscPressHandler = function (evt) {
@@ -109,44 +116,37 @@ var userDialogEscPressHandler = function (evt) {
   }
 };
 
-// вызовы функций
-
-init();
-
-userNameInput.addEventListener('invalid', function () { // сделать
-  if (userNameInput.validity.tooShort) {
-    userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
-  } else if (userNameInput.validity.tooLong) {
-    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+var userNameInputChangeHandler = function () { // название ?
+  var valueLength = userNameInput.value.length;
+  if (!form.reportValidity() && valueLength < MIN_NAME_LENGTH) {
+    userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов. Введите ещё ' + (MIN_NAME_LENGTH - valueLength) + ' симв.');
+  } else if (!form.reportValidity() && valueLength > MAX_NAME_LENGTH) {
+    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов. Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) + ' симв.');
   } else if (userNameInput.validity.valueMissing) {
     userNameInput.setCustomValidity('Обязательное поле');
   } else {
     userNameInput.setCustomValidity('');
   }
-});
+};
 
-userNameInput.addEventListener('input', function () { // сделать
-  var valueLength = userNameInput.value.length;
-  if (!form.reportValidity() && valueLength < MIN_NAME_LENGTH) {
-    userNameInput.setCastomValidity('Ещё ' + (MIN_NAME_LENGTH - valueLength) + ' симв.');
-  } else if (!form.reportValidity() && valueLength > MAX_NAME_LENGTH) {
-    userNameInput.setCastomValidity(' Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) + ' симв.');
-  } else {
-    userNameInput.setCustomValidity('');
+var wizardSetupClickHandler = function (evt) { // className не работает
+  // функция и красит и выясняет, кого нужно покрасить. нужно ли разделять на 2 функции?
+  switch (evt.target.classList.value) {
+    case 'wizard-coat':
+      evt.target.style.fill = WIZARD_COAT_COLORS[getRandomNumber(WIZARD_COAT_COLORS.length - 1)];
+      wizardCoatColorInput.value = evt.target.style.fill;
+      break;
+    case 'wizard-eyes':
+      evt.target.style.fill = WIZARD_EYES_COLORS[getRandomNumber(WIZARD_EYES_COLORS.length - 1)];
+      wizardEyesColorInput.value = evt.target.style.fill;
+      break;
+    case 'setup-fireball': // сервер: ошибка из-за формата цвета без rgbToHex
+      evt.target.style.backgroundColor = WIZARD_FIREBALL_COLORS[getRandomNumber(WIZARD_FIREBALL_COLORS.length - 1)];
+      wizardFireballColorInput.value = rgbToHex(evt.target.style.backgroundColor);
+      break;
   }
-});
+};
 
-wizardCoatElement.addEventListener('click', function () { // не работает автосмена и не работает отправка на сервер
-  wizardCoatElement.style.fill = WIZARD_COAT_COLORS[getRandomNumber(WIZARD_COAT_COLORS.length - 1)];
-  wizardCoatColorInput.value = wizardCoatElement.style.fill;
-});
+// вызовы функций
 
-wizardEyesElement.addEventListener('click', function () { // не работает автосмена и не работает отправка на сервер
-  wizardEyesElement.style.fill = WIZARD_EYES_COLORS[getRandomNumber(WIZARD_EYES_COLORS.length - 1)];
-  wizardEyesColorInput.value = wizardEyesElement.style.fill;
-});
-
-wizardFireballWrap.addEventListener('click', function () { // не работало при записи в переменную
-  wizardFireballWrap.style.backgroundColor = WIZARD_FIREBALL_COLORS[getRandomNumber(WIZARD_FIREBALL_COLORS.length - 1)];
-  wizardFireballColorInput.value = wizardFireballWrap.style.backgroundColor;
-});
+init();
