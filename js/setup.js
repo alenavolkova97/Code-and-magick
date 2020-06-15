@@ -21,7 +21,9 @@ var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 var userNameInput = userDialog.querySelector('.setup-user-name');
 var form = document.querySelector('.setup-wizard-form');
-var wizardSetup = document.querySelector('.setup-player');
+var wizardCoat = document.querySelector('.wizard-coat');
+var wizardEyes = document.querySelector('.wizard-eyes');
+var wizardFireball = document.querySelector('.setup-fireball');
 var wizardCoatColorInput = document.querySelector('input[name="coat-color"]');
 var wizardEyesColorInput = document.querySelector('input[name="eyes-color"]');
 var wizardFireballColorInput = document.querySelector('input[name="fireball-color"]');
@@ -32,21 +34,27 @@ var MAX_NAME_LENGTH = userNameInput.maxLength;
 // объявления функций
 
 var init = function () {
+  similarWizardsDialog.classList.remove('hidden');
+  drawWizards();
+
   setupOpen.addEventListener('click', function () {
     openUserDialog();
   });
+
   setupOpen.addEventListener('keydown', function (evt) {
     if (evt.key === 'Enter') {
       openUserDialog();
     }
   });
+
   setupClose.addEventListener('click', function () {
     closeUserDialog();
   });
-  similarWizardsDialog.classList.remove('hidden');
-  drawWizards();
+
   userNameInput.addEventListener('input', userNameInputChangeHandler);
-  wizardSetup.addEventListener('click', wizardSetupClickHandler);
+  wizardCoat.addEventListener('click', wizardCoatClickHandler);
+  wizardEyes.addEventListener('click', wizardEyesClickHandler);
+  wizardFireball.addEventListener('click', wizardFireballClickHandler);
 };
 
 var getRandomNumber = function (maxRandomNumber) { // временно
@@ -97,16 +105,6 @@ var closeUserDialog = function () {
   document.removeEventListener('keydown', userDialogEscPressHandler);
 };
 
-var rgbToHex = function (rgb) { // ?
-  var hexDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-
-  var hex = function (x) {
-    return isNaN(x) ? '00' : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
-  };
-  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-  return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-};
-
 // объявления обработчиков
 
 var userDialogEscPressHandler = function (evt) {
@@ -116,7 +114,7 @@ var userDialogEscPressHandler = function (evt) {
   }
 };
 
-var userNameInputChangeHandler = function () { // название ?
+var userNameInputChangeHandler = function () {
   var valueLength = userNameInput.value.length;
   if (!form.reportValidity() && valueLength < MIN_NAME_LENGTH) {
     userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов. Введите ещё ' + (MIN_NAME_LENGTH - valueLength) + ' симв.');
@@ -129,22 +127,20 @@ var userNameInputChangeHandler = function () { // название ?
   }
 };
 
-var wizardSetupClickHandler = function (evt) { // className не работает
-  // функция и красит и выясняет, кого нужно покрасить. нужно ли разделять на 2 функции?
-  switch (evt.target.classList.value) {
-    case 'wizard-coat':
-      evt.target.style.fill = WIZARD_COAT_COLORS[getRandomNumber(WIZARD_COAT_COLORS.length - 1)];
-      wizardCoatColorInput.value = evt.target.style.fill;
-      break;
-    case 'wizard-eyes':
-      evt.target.style.fill = WIZARD_EYES_COLORS[getRandomNumber(WIZARD_EYES_COLORS.length - 1)];
-      wizardEyesColorInput.value = evt.target.style.fill;
-      break;
-    case 'setup-fireball': // сервер: ошибка из-за формата цвета без rgbToHex
-      evt.target.style.backgroundColor = WIZARD_FIREBALL_COLORS[getRandomNumber(WIZARD_FIREBALL_COLORS.length - 1)];
-      wizardFireballColorInput.value = rgbToHex(evt.target.style.backgroundColor);
-      break;
-  }
+var wizardCoatClickHandler = function () {
+  wizardCoat.style.fill = WIZARD_COAT_COLORS[getRandomNumber(WIZARD_COAT_COLORS.length - 1)];
+  wizardCoatColorInput.value = wizardCoat.style.fill;
+};
+
+var wizardEyesClickHandler = function () {
+  wizardEyes.style.fill = WIZARD_EYES_COLORS[getRandomNumber(WIZARD_EYES_COLORS.length - 1)];
+  wizardEyesColorInput.value = wizardEyes.style.fill;
+};
+
+var wizardFireballClickHandler = function () {
+  var fireballColor = WIZARD_FIREBALL_COLORS[getRandomNumber(WIZARD_FIREBALL_COLORS.length - 1)];
+  wizardFireball.style.backgroundColor = fireballColor;
+  wizardFireballColorInput.value = fireballColor;
 };
 
 // вызовы функций
