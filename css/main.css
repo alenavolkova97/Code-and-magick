@@ -750,10 +750,15 @@ input[type=radio]:checked + .review-mark-label
 
 .setup-close
 {
+    font: inherit;
     font-size: 70px;
+    line-height: normal;
 
     top: 20px;
     right: 20px;
+
+    margin: 0;
+    padding: 0;
 
     float: right;
 
@@ -761,6 +766,7 @@ input[type=radio]:checked + .review-mark-label
     transform: translateY(-.3em);
 
     color: #000;
+    background-color: transparent;
 }
 
 .setup-artifacts-shop
