@@ -63,16 +63,17 @@ var getRandomNumber = function (maxRandomNumber) { // временно
 };
 
 var generateRandomWizards = function () {
-  var wizardsArray = [];
+  var wizards = [];
   var orderVersion = getRandomNumber();
   for (var i = 0; i < WIZARDS_QUANTITY; i++) {
-    wizardsArray.push({
+    var randomWizard = {
       name: (orderVersion === 0) ? WIZARD_NAMES[getRandomNumber(WIZARD_NAMES.length - 1)] + ' ' + WIZARD_SURNAMES[getRandomNumber(WIZARD_SURNAMES.length - 1)] : WIZARD_SURNAMES[getRandomNumber(WIZARD_SURNAMES.length - 1)] + ' ' + WIZARD_NAMES[getRandomNumber(WIZARD_NAMES.length - 1)],
       coatColor: WIZARD_COAT_COLORS[getRandomNumber(WIZARD_COAT_COLORS.length - 1)],
       eyesColor: WIZARD_EYES_COLORS[getRandomNumber(WIZARD_EYES_COLORS.length - 1)]
-    });
+    };
+    wizards.push(randomWizard);
   }
-  return wizardsArray;
+  return wizards;
 };
 
 var getUniqueWizard = function (wizard) {
@@ -128,13 +129,15 @@ var userNameInputChangeHandler = function () {
 };
 
 var wizardCoatClickHandler = function () {
-  wizardCoat.style.fill = WIZARD_COAT_COLORS[getRandomNumber(WIZARD_COAT_COLORS.length - 1)];
-  wizardCoatColorInput.value = wizardCoat.style.fill;
+  var wizardCoatColor = WIZARD_COAT_COLORS[getRandomNumber(WIZARD_COAT_COLORS.length - 1)];
+  wizardCoat.style.fill = wizardCoatColor;
+  wizardCoatColorInput.value = wizardCoatColor;
 };
 
 var wizardEyesClickHandler = function () {
-  wizardEyes.style.fill = WIZARD_EYES_COLORS[getRandomNumber(WIZARD_EYES_COLORS.length - 1)];
-  wizardEyesColorInput.value = wizardEyes.style.fill;
+  var wizardEyesColor = WIZARD_EYES_COLORS[getRandomNumber(WIZARD_EYES_COLORS.length - 1)];
+  wizardEyes.style.fill = wizardEyesColor;
+  wizardEyesColorInput.value = wizardEyesColor;
 };
 
 var wizardFireballClickHandler = function () {
@@ -143,6 +146,9 @@ var wizardFireballClickHandler = function () {
   wizardFireballColorInput.value = fireballColor;
 };
 
-// вызовы функций
+var windowLoadHandler = function () {
+  init();
+};
 
-init();
+// событие загрузки страницы - код вне функции
+window.addEventListener('load', windowLoadHandler);
