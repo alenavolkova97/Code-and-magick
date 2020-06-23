@@ -19,8 +19,8 @@
     for (var i = 0; i < WIZARDS_QUANTITY; i++) {
       var randomWizard = {
         name: (orderVersion === 0) ? WIZARD_NAMES[window.randomize.getRandomNumber(WIZARD_NAMES.length - 1)] + ' ' + WIZARD_SURNAMES[window.randomize.getRandomNumber(WIZARD_SURNAMES.length - 1)] : WIZARD_SURNAMES[window.randomize.getRandomNumber(WIZARD_SURNAMES.length - 1)] + ' ' + WIZARD_NAMES[window.randomize.getRandomNumber(WIZARD_NAMES.length - 1)],
-        coatColor: WIZARD_COAT_COLORS[window.randomize.getRandomNumber(WIZARD_COAT_COLORS.length - 1)],
-        eyesColor: WIZARD_EYES_COLORS[window.randomize.getRandomNumber(WIZARD_EYES_COLORS.length - 1)]
+        // coatColor: WIZARD_COAT_COLORS[window.randomize.getRandomNumber(WIZARD_COAT_COLORS.length - 1)],
+        // eyesColor: WIZARD_EYES_COLORS[window.randomize.getRandomNumber(WIZARD_EYES_COLORS.length - 1)]
       };
       wizards.push(randomWizard);
     }

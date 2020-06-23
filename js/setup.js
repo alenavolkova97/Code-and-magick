@@ -32,19 +32,19 @@
   };
 
   var wizardCoatClickHandler = function () {
-    var wizardCoatColor = WIZARD_COAT_COLORS[window.randomize.getRandomNumber(WIZARD_COAT_COLORS.length - 1)];
+    // var wizardCoatColor = WIZARD_COAT_COLORS[window.randomize.getRandomNumber(WIZARD_COAT_COLORS.length - 1)];
     wizardCoat.style.fill = wizardCoatColor;
     wizardCoatColorInput.value = wizardCoatColor;
   };
 
   var wizardEyesClickHandler = function () {
-    var wizardEyesColor = WIZARD_EYES_COLORS[window.randomize.getRandomNumber(WIZARD_EYES_COLORS.length - 1)];
+    // var wizardEyesColor = WIZARD_EYES_COLORS[window.randomize.getRandomNumber(WIZARD_EYES_COLORS.length - 1)];
     wizardEyes.style.fill = wizardEyesColor;
     wizardEyesColorInput.value = wizardEyesColor;
   };
 
   var wizardFireballClickHandler = function () {
-    var fireballColor = WIZARD_FIREBALL_COLORS[window.randomize.getRandomNumber(WIZARD_FIREBALL_COLORS.length - 1)];
+    // var fireballColor = WIZARD_FIREBALL_COLORS[window.randomize.getRandomNumber(WIZARD_FIREBALL_COLORS.length - 1)];
     wizardFireball.style.backgroundColor = fireballColor;
     wizardFireballColorInput.value = fireballColor;
   };
