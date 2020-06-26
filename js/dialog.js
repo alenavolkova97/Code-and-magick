@@ -2,6 +2,7 @@
 
 (function () {
   var userDialog = document.querySelector('.setup');
+  var similarWizardsDialog = document.querySelector('.setup-similar');
   var userNameInput = userDialog.querySelector('.setup-user-name');
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = document.querySelector('.setup-close');
@@ -11,7 +12,9 @@
 
   var openUserDialog = function () {
     userDialog.classList.remove('hidden');
+    similarWizardsDialog.classList.remove('hidden');
 
+    setupClose.addEventListener('click', setupCloseClickHandler);
     document.addEventListener('keydown', userDialogEscPressHandler);
     wizardCoat.addEventListener('click', window.setup.wizardCoatClickHandler);
     wizardEyes.addEventListener('click', window.setup.wizardEyesClickHandler);
@@ -22,11 +25,16 @@
   var closeUserDialog = function () {
     userDialog.classList.add('hidden');
 
+    setupClose.removeEventListener('click', setupCloseClickHandler);
     document.removeEventListener('keydown', userDialogEscPressHandler);
     wizardCoat.removeEventListener('click', window.setup.wizardCoatClickHandler);
     wizardEyes.removeEventListener('click', window.setup.wizardEyesClickHandler);
     wizardFireball.removeEventListener('click', window.setup.wizardFireballClickHandler);
     userNameInput.removeEventListener('input', window.setup.userNameInputChangeHandler);
+  };
+
+  var setupCloseClickHandler = function () {
+    closeUserDialog();
   };
 
   var userDialogEscPressHandler = function (evt) {
@@ -45,10 +53,6 @@
       if (evt.key === 'Enter') {
         openUserDialog();
       }
-    });
-
-    setupClose.addEventListener('click', function () {
-      closeUserDialog();
     });
   };
 
