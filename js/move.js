@@ -3,9 +3,6 @@
 (function () {
   var userDialog = document.querySelector('.setup');
   var dialogHandle = userDialog.querySelector('.upload');
-  var field = document.querySelector('body');
-
-  var fieldSizes = field.getBoundingClientRect(); // ?
 
   dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -27,15 +24,13 @@
         y: startCoords.y - moveEvt.clientY
       };
 
-      if (fieldSizes.width >= moveEvt.clientX && fieldSizes.height >= moveEvt.clientY) { // ?
-        startCoords = {
-          x: moveEvt.clientX,
-          y: moveEvt.clientY
-        };
+      startCoords = {
+        x: moveEvt.clientX,
+        y: moveEvt.clientY
+      };
 
-        userDialog.style.top = (userDialog.offsetTop - shift.y) + 'px';
-        userDialog.style.left = (userDialog.offsetLeft - shift.x) + 'px';
-      }
+      userDialog.style.top = (userDialog.offsetTop - shift.y) + 'px';
+      userDialog.style.left = (userDialog.offsetLeft - shift.x) + 'px';
     };
 
     var mouseUpHandler = function (upEvt) {

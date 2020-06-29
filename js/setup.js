@@ -28,7 +28,8 @@ window.setup = (function () {
       userNameInput.setCustomValidity('Обязательное поле');
     } else {
       userNameInput.setCustomValidity('');
-    };
+    }
+  };
 
   var wizardCoatClickHandler = function () {
     window.colorize.colorizeElement(wizardCoat, wizardCoatColorInput, WIZARD_COAT_COLORS);

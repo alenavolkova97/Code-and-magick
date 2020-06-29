@@ -35,12 +35,14 @@
 
   var setupCloseClickHandler = function () {
     closeUserDialog();
+    userDialog.removeAttribute('style');
   };
 
   var userDialogEscPressHandler = function (evt) {
     if (evt.key === 'Escape' && document.activeElement !== userNameInput) {
       evt.preventDefault();
       userDialog.classList.add('hidden');
+      userDialog.removeAttribute('style');
     }
   };
 
