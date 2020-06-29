@@ -18,28 +18,34 @@ window.setup = (function () {
   var MIN_NAME_LENGTH = userNameInput.minLength;
   var MAX_NAME_LENGTH = userNameInput.maxLength;
 
-  return {
-    userNameInputChangeHandler: function () {
-      var valueLength = userNameInput.value.length;
-      if (!form.reportValidity() && valueLength < MIN_NAME_LENGTH) {
-        userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов. Введите ещё ' + (MIN_NAME_LENGTH - valueLength) + ' симв.');
-      } else if (!form.reportValidity() && valueLength > MAX_NAME_LENGTH) {
-        userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов. Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) + ' симв.');
-      } else if (userNameInput.validity.valueMissing) {
-        userNameInput.setCustomValidity('Обязательное поле');
-      } else {
-        userNameInput.setCustomValidity('');
-      }
-    },
+  var userNameInputChangeHandler = function () {
+    var valueLength = userNameInput.value.length;
+    if (!form.reportValidity() && valueLength < MIN_NAME_LENGTH) {
+      userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов. Введите ещё ' + (MIN_NAME_LENGTH - valueLength) + ' симв.');
+    } else if (!form.reportValidity() && valueLength > MAX_NAME_LENGTH) {
+      userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов. Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) + ' симв.');
+    } else if (userNameInput.validity.valueMissing) {
+      userNameInput.setCustomValidity('Обязательное поле');
+    } else {
+      userNameInput.setCustomValidity('');
+    };
 
-    wizardCoatClickHandler: function () {
-      window.colorize.colorizeElement(wizardCoat, wizardCoatColorInput, WIZARD_COAT_COLORS);
-    },
-    wizardEyesClickHandler: function () {
-      window.colorize.colorizeElement(wizardEyes, wizardEyesColorInput, WIZARD_EYES_COLORS);
-    },
-    wizardFireballClickHandler: function () {
-      window.colorize.colorizeElement(wizardFireball, wizardFireballColorInput, WIZARD_FIREBALL_COLORS);
-    }
+  var wizardCoatClickHandler = function () {
+    window.colorize.colorizeElement(wizardCoat, wizardCoatColorInput, WIZARD_COAT_COLORS);
+  };
+
+  var wizardEyesClickHandler = function () {
+    window.colorize.colorizeElement(wizardEyes, wizardEyesColorInput, WIZARD_EYES_COLORS);
+  };
+
+  var wizardFireballClickHandler = function () {
+    window.colorize.colorizeElement(wizardFireball, wizardFireballColorInput, WIZARD_FIREBALL_COLORS);
+  };
+
+  return {
+    userNameInputChangeHandler: userNameInputChangeHandler,
+    wizardCoatClickHandler: wizardCoatClickHandler,
+    wizardEyesClickHandler: wizardEyesClickHandler,
+    wizardFireballClickHandler: wizardFireballClickHandler
   };
 })();

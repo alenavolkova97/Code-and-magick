@@ -5,10 +5,7 @@
   var dialogHandle = userDialog.querySelector('.upload');
   var field = document.querySelector('body');
 
-  var FieldSizes = {
-    width: field.getBoundingClientRect().width,
-    height: field.getBoundingClientRect().height
-  };
+  var fieldSizes = field.getBoundingClientRect(); // ?
 
   dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -30,7 +27,7 @@
         y: startCoords.y - moveEvt.clientY
       };
 
-      if (FieldSizes.width >= moveEvt.clientX && FieldSizes.height >= moveEvt.clientY) { // ?
+      if (fieldSizes.width >= moveEvt.clientX && fieldSizes.height >= moveEvt.clientY) { // ?
         startCoords = {
           x: moveEvt.clientX,
           y: moveEvt.clientY
