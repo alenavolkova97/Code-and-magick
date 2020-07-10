@@ -1,52 +1,55 @@
 'use strict';
 
 (function () {
-  var WIZARDS_QUANTITY = 4;
-  var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-  var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-  var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+  var MAX_SIMILAR_WIZARD_COUNT = 4;
 
   var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
   var similarWizardsList = document.querySelector('.setup-similar-list');
-
-  var generateRandomWizards = function () {
-    var wizards = [];
-    var orderVersion = window.randomize.getRandomNumber();
-    for (var i = 0; i < WIZARDS_QUANTITY; i++) {
-      var randomWizard = {
-        name: (orderVersion === 0) ? WIZARD_NAMES[window.randomize.getRandomNumber(WIZARD_NAMES.length - 1)] + ' ' + WIZARD_SURNAMES[window.randomize.getRandomNumber(WIZARD_SURNAMES.length - 1)] : WIZARD_SURNAMES[window.randomize.getRandomNumber(WIZARD_SURNAMES.length - 1)] + ' ' + WIZARD_NAMES[window.randomize.getRandomNumber(WIZARD_NAMES.length - 1)],
-        coatColor: window.colorize.getRandomColor(WIZARD_COAT_COLORS),
-        eyesColor: window.colorize.getRandomColor(WIZARD_EYES_COLORS)
-      };
-      wizards.push(randomWizard);
-    }
-    return wizards;
-  };
+  var form = document.querySelector('.setup-wizard-form');
+  var userDialog = document.querySelector('.setup'); // объявляется в 4х модулях - делать экспорт из какого-нибудь?
 
   var getUniqueWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
     return wizardElement;
   };
 
-  var drawWizards = function () {
+  var successHandler = function (wizards) {
     var fragment = document.createDocumentFragment();
-    var wizards = generateRandomWizards();
-    for (var i = 0; i < wizards.length; i++) {
+    for (var i = 0; i < MAX_SIMILAR_WIZARD_COUNT; i++) {
       var uniqueWizard = getUniqueWizard(wizards[i]);
       fragment.appendChild(uniqueWizard);
     }
     similarWizardsList.appendChild(fragment);
   };
 
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.zIndex = 10;
+    node.style.backgroundColor = 'red';
+    node.style.textAlign = 'center';
+    node.style.fontSize = '40px';
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
   var windowLoadHandler = function () {
-    drawWizards();
+    window.backend.makeRequest(successHandler, errorHandler);
   };
 
   window.addEventListener('load', windowLoadHandler);
+
+  form.addEventListener('submit', function (evt) {
+    window.backend.makeRequest(function () {
+      userDialog.classList.add('hidden');
+      evt.preventDefault(); // не работает и не нахожу ошибку
+    }, errorHandler, new FormData(form));
+  });
 })();
