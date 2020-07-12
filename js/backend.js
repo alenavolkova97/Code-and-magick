@@ -1,16 +1,20 @@
 'use strict';
 // отрисовываются всегда одни и те же волшебники в списке похожих магов - это правильно?
 window.backend = (function () {
-  var URL_LOAD = 'https://javascript.pages.academy/code-and-magick/data';
-  var URL_SAVE = 'https://javascript.pages.academy/code-and-magick';
+  var TIMEOUT_IN_MS = 10000;
+
+  var URL = {
+    URL_LOAD: 'https://javascript.pages.academy/code-and-magick/data',
+    URL_SAVE: 'https://javascript.pages.academy/code-and-magick'
+  };
+
   var StatusCode = {
     OK: 200,
     BAD_REQUEST: 400,
     NOT_FOUND: 404
   };
-  var TIMEOUT_IN_MS = 10000;
 
-  var makeRequest = function (onLoad, onError, data) {
+  var makeRequest = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -46,17 +50,23 @@ window.backend = (function () {
     });
 
     xhr.timeout = TIMEOUT_IN_MS;
+    return xhr;
+  };
 
-    if (data) {
-      xhr.open('POST', URL_SAVE);
-      xhr.send(data);
-    } else {
-      xhr.open('GET', URL_LOAD);
-      xhr.send();
-    }
+  var saveData = function (onLoad, onError, data) {
+    var xhr = makeRequest(onLoad, onError);
+    xhr.open('POST', URL.URL_SAVE);
+    xhr.send(data);
+  };
+
+  var loadData = function (onLoad, onError) {
+    var xhr = makeRequest(onLoad, onError);
+    xhr.open('GET', URL.URL_LOAD);
+    xhr.send();
   };
 
   return {
-    makeRequest: makeRequest
+    saveData: saveData,
+    loadData: loadData
   };
 })();

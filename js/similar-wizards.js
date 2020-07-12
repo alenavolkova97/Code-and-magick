@@ -41,15 +41,15 @@
   };
 
   var windowLoadHandler = function () {
-    window.backend.makeRequest(successHandler, errorHandler);
+    window.backend.loadData(successHandler, errorHandler);
   };
 
   window.addEventListener('load', windowLoadHandler);
 
   form.addEventListener('submit', function (evt) {
-    window.backend.makeRequest(function () {
+    evt.preventDefault();
+    window.backend.saveData(function () {
       userDialog.classList.add('hidden');
-      evt.preventDefault(); // не работает и не нахожу ошибку
     }, errorHandler, new FormData(form));
   });
 })();
