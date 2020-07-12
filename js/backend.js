@@ -3,7 +3,7 @@
 window.backend = (function () {
   var TIMEOUT_IN_MS = 10000;
 
-  var URL = {
+  var URLs = {
     URL_LOAD: 'https://javascript.pages.academy/code-and-magick/data',
     URL_SAVE: 'https://javascript.pages.academy/code-and-magick'
   };
@@ -55,13 +55,13 @@ window.backend = (function () {
 
   var saveData = function (onLoad, onError, data) {
     var xhr = makeRequest(onLoad, onError);
-    xhr.open('POST', URL.URL_SAVE);
+    xhr.open('POST', URLs.URL_SAVE);
     xhr.send(data);
   };
 
   var loadData = function (onLoad, onError) {
     var xhr = makeRequest(onLoad, onError);
-    xhr.open('GET', URL.URL_LOAD);
+    xhr.open('GET', URLs.URL_LOAD);
     xhr.send();
   };
 
