@@ -1,5 +1,4 @@
 'use strict';
-// отрисовываются всегда одни и те же волшебники в списке похожих магов - это правильно?
 window.backend = (function () {
   var TIMEOUT_IN_MS = 10000;
 
@@ -42,7 +41,7 @@ window.backend = (function () {
     });
 
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка запроса'); // обработать случай получения не json
+      onError('Произошла ошибка запроса');
     });
 
     xhr.addEventListener('timeout', function () {
