@@ -43,10 +43,31 @@ window.setup = (function () {
     window.colorize.colorizeElement(wizardFireball, wizardFireballColorInput, WIZARD_FIREBALL_COLORS);
   };
 
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.zIndex = 10;
+    node.style.backgroundColor = 'red';
+    node.style.textAlign = 'center';
+    node.style.fontSize = '40px';
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.saveData(function () {
+      userDialog.classList.add('hidden');
+    }, errorHandler, new FormData(form));
+  });
+
   return {
     userNameInputChangeHandler: userNameInputChangeHandler,
     wizardCoatClickHandler: wizardCoatClickHandler,
     wizardEyesClickHandler: wizardEyesClickHandler,
-    wizardFireballClickHandler: wizardFireballClickHandler
+    wizardFireballClickHandler: wizardFireballClickHandler,
+    errorHandler: errorHandler
   };
 })();
