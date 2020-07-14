@@ -13,7 +13,7 @@
   var openUserDialog = function () {
     userDialog.classList.remove('hidden');
     similarWizardsDialog.classList.remove('hidden');
-
+    window.similarWizards.drawWizards();
     setupClose.addEventListener('click', setupCloseClickHandler);
     document.addEventListener('keydown', userDialogEscPressHandler);
     wizardCoat.addEventListener('click', window.setup.wizardCoatClickHandler);
