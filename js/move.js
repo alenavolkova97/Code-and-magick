@@ -7,7 +7,7 @@
   dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    var startCoords = {
+    var startCoordsListMap = {
       x: evt.clientX,
       y: evt.clientY
     };
@@ -20,11 +20,11 @@
       dragged = true;
 
       var shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
+        x: startCoordsListMap.x - moveEvt.clientX,
+        y: startCoordsListMap.y - moveEvt.clientY
       };
 
-      startCoords = {
+      startCoordsListMap = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };

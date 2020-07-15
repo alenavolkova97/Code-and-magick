@@ -44,9 +44,9 @@
     return maxElement;
   };
 
-  var showIntro = function (ctx, array) {
-    for (var i = 0; i < array.length; i++) {
-      ctx.fillText(array[i], CLOUD_X + 2 * GAP, CLOUD_Y + 3 * GAP + i * (FONT_GAP));
+  var showIntro = function (ctx, intro) {
+    for (var i = 0; i < intro.length; i++) {
+      ctx.fillText(intro[i], CLOUD_X + 2 * GAP, CLOUD_Y + 3 * GAP + i * (FONT_GAP));
     }
   };
 

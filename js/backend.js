@@ -2,9 +2,9 @@
 window.backend = (function () {
   var TIMEOUT_IN_MS = 10000;
 
-  var URLs = {
-    URL_LOAD: 'https://javascript.pages.academy/code-and-magick/data',
-    URL_SAVE: 'https://javascript.pages.academy/code-and-magick'
+  var Url = {
+    LOAD: 'https://javascript.pages.academy/code-and-magick/data',
+    SAVE: 'https://javascript.pages.academy/code-and-magick'
   };
 
   var StatusCode = {
@@ -54,13 +54,13 @@ window.backend = (function () {
 
   var saveData = function (onLoad, onError, data) {
     var xhr = makeRequest(onLoad, onError);
-    xhr.open('POST', URLs.URL_SAVE);
+    xhr.open('POST', Url.SAVE);
     xhr.send(data);
   };
 
   var loadData = function (onLoad, onError) {
     var xhr = makeRequest(onLoad, onError);
-    xhr.open('GET', URLs.URL_LOAD);
+    xhr.open('GET', Url.LOAD);
     xhr.send();
   };
 
