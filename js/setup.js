@@ -15,15 +15,15 @@ window.setup = (function () {
   var wizardEyesColorInput = document.querySelector('input[name="eyes-color"]');
   var wizardFireballColorInput = document.querySelector('input[name="fireball-color"]');
 
-  var MIN_NAME_LENGTH = userNameInput.minLength;
-  var MAX_NAME_LENGTH = userNameInput.maxLength;
+  var minNameLength = userNameInput.minLength;
+  var maxNameLength = userNameInput.maxLength;
 
   var userNameInputChangeHandler = function () {
     var valueLength = userNameInput.value.length;
-    if (!form.reportValidity() && valueLength < MIN_NAME_LENGTH) {
-      userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов. Введите ещё ' + (MIN_NAME_LENGTH - valueLength) + ' симв.');
-    } else if (!form.reportValidity() && valueLength > MAX_NAME_LENGTH) {
-      userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов. Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) + ' симв.');
+    if (!form.reportValidity() && valueLength < minNameLength) {
+      userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов. Введите ещё ' + (minNameLength - valueLength) + ' симв.');
+    } else if (!form.reportValidity() && valueLength > maxNameLength) {
+      userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов. Удалите лишние ' + (valueLength - maxNameLength) + ' симв.');
     } else if (userNameInput.validity.valueMissing) {
       userNameInput.setCustomValidity('Обязательное поле');
     } else {

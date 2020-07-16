@@ -5,7 +5,6 @@
   var dialogHandle = userDialog.querySelector('.upload');
 
   dialogHandle.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
 
     var startCoordsListMap = {
       x: evt.clientX,
@@ -15,7 +14,6 @@
     var dragged = false;
 
     var mouseMoveHandler = function (moveEvt) {
-      moveEvt.preventDefault();
 
       dragged = true;
 
@@ -33,9 +31,7 @@
       userDialog.style.left = (userDialog.offsetLeft - shift.x) + 'px';
     };
 
-    var mouseUpHandler = function (upEvt) {
-      upEvt.preventDefault();
-
+    var mouseUpHandler = function () {
       document.removeEventListener('mousemove', mouseMoveHandler);
       document.removeEventListener('mouseup', mouseUpHandler);
 
