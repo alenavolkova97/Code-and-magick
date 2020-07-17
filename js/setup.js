@@ -60,6 +60,14 @@ window.setup = (function () {
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
+  var getcoatColor = function () {
+    return coatColor;
+  };
+
+  var geteyesColor = function () {
+    return eyesColor;
+  };
+
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.saveData(function () {
@@ -73,7 +81,7 @@ window.setup = (function () {
     wizardEyesClickHandler: wizardEyesClickHandler,
     wizardFireballClickHandler: wizardFireballClickHandler,
     errorHandler: errorHandler,
-    coatColor: coatColor,
-    eyesColor: eyesColor
+    coatColor: getcoatColor,
+    eyesColor: geteyesColor
   };
 })();

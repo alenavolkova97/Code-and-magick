@@ -28,25 +28,35 @@ window.similarWizards = (function () {
     similarWizardsList.appendChild(fragment);
   };
 
-  var updateWizards = function () {
-    var sameCoatAndEyesWizards = wizards.filter(function (it) {
-      return it.colorCoat === window.setup.coatColor && it.colorEyes === window.setup.eyesColor;
-    });
+  var getRank = function (wizard) {
+    var rank = 0;
+    if (wizard.colorCoat === window.setup.coatColor()) {
+      rank += 2;
+    }
+    if (wizard.colorEyes === window.setup.eyesColor()) {
+      rank += 1;
+    }
+    return rank;
+  };
 
-    var sameCoatWizards = wizards.filter(function (it) {
-      return it.colorCoat === window.setup.coatColor;
-    });
-    var sameEyesWizards = wizards.filter(function (it) {
-      return it.colorEyes === window.setup.eyesColor;
-    });
-    var filteredWizards = sameCoatAndEyesWizards;
-    filteredWizards = filteredWizards.concat(sameCoatWizards);
-    filteredWizards = filteredWizards.concat(sameEyesWizards);
-    filteredWizards = filteredWizards.concat(wizards);
-    var uniqueWizards = filteredWizards.filter(function (it, i) {
-      return filteredWizards.indexOf(it) === i;
-    });
-    drawWizards(uniqueWizards);
+  var namesComparator = function (a, b) {
+    if (a > b) {
+      return 1;
+    } else if (a < b) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+
+  var updateWizards = function () {
+    drawWizards(wizards.slice().sort(function (a, b) {
+      var rankDiff = getRank(b) - getRank(a);
+      if (rankDiff === 0) {
+        rankDiff = namesComparator(a.name, b.name);
+      }
+      return rankDiff;
+    }));
   };
 
   var successHandler = function (data) {
