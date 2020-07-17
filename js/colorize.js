@@ -12,6 +12,7 @@ window.colorize = (function () {
       element.style.fill = color;
     }
     input.value = color;
+    return color;
   };
   return {
     getRandomColor: getRandomColor,
