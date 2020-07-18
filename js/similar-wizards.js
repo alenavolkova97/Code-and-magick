@@ -2,6 +2,8 @@
 
 window.similarWizards = (function () {
   var MAX_SIMILAR_WIZARD_COUNT = 4;
+  var COAT_COLOR_MATCH_RANK = 2;
+  var EYES_COLOR_MATCH_RANK = 1;
 
   var wizards = [];
   var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -31,10 +33,10 @@ window.similarWizards = (function () {
   var getRank = function (wizard) {
     var rank = 0;
     if (wizard.colorCoat === window.setup.coatColor()) {
-      rank += 2;
+      rank += COAT_COLOR_MATCH_RANK;
     }
     if (wizard.colorEyes === window.setup.eyesColor()) {
-      rank += 1;
+      rank += EYES_COLOR_MATCH_RANK;
     }
     return rank;
   };
