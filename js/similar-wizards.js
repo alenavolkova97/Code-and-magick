@@ -2,8 +2,8 @@
 
 window.similarWizards = (function () {
   var MAX_SIMILAR_WIZARD_COUNT = 4;
-  var COAT_COLOR_MATCH_RANK = 2;
-  var EYES_COLOR_MATCH_RANK = 1;
+  var COAT_COLOR_MATCH_RANK_INCREASE = 2;
+  var EYES_COLOR_MATCH_RANK_INCREASE = 1;
 
   var wizards = [];
   var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -33,10 +33,10 @@ window.similarWizards = (function () {
   var getRank = function (wizard) {
     var rank = 0;
     if (wizard.colorCoat === window.setup.coatColor()) {
-      rank += COAT_COLOR_MATCH_RANK;
+      rank += COAT_COLOR_MATCH_RANK_INCREASE;
     }
     if (wizard.colorEyes === window.setup.eyesColor()) {
-      rank += EYES_COLOR_MATCH_RANK;
+      rank += EYES_COLOR_MATCH_RANK_INCREASE;
     }
     return rank;
   };
