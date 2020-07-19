@@ -33,15 +33,15 @@ window.setup = (function () {
     }
   };
 
-  var wizardCoatClickHandler = window.debounce.functionCall(function () { // ?
+  var wizardCoatClickHandler = function () {
     coatColor = window.colorize.colorizeElement(wizardCoat, wizardCoatColorInput, WIZARD_COAT_COLORS);
     window.similarWizards.updateWizards();
-  });
+  };
 
-  var wizardEyesClickHandler = window.debounce.functionCall(function () { // ?
+  var wizardEyesClickHandler = function () {
     eyesColor = window.colorize.colorizeElement(wizardEyes, wizardEyesColorInput, WIZARD_EYES_COLORS);
     window.similarWizards.updateWizards();
-  });
+  };
 
   var wizardFireballClickHandler = function () {
     window.colorize.colorizeElement(wizardFireball, wizardFireballColorInput, WIZARD_FIREBALL_COLORS);

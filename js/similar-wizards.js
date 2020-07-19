@@ -72,6 +72,6 @@ window.similarWizards = (function () {
   window.addEventListener('load', windowLoadHandler);
 
   return {
-    updateWizards: updateWizards,
+    updateWizards: window.utils.debounce(updateWizards),
   };
 })();
