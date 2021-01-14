@@ -14,6 +14,8 @@ window.setup = (function () {
   var wizardCoatColorInput = document.querySelector('input[name="coat-color"]');
   var wizardEyesColorInput = document.querySelector('input[name="eyes-color"]');
   var wizardFireballColorInput = document.querySelector('input[name="fireball-color"]');
+  var setupOpenIcon = document.querySelector('.setup-open-icon');
+
   var coatColor = 'rgb(101, 137, 164)';
   var eyesColor = 'black';
 
@@ -74,6 +76,8 @@ window.setup = (function () {
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
+
+    setupOpenIcon.src = window.loadPhoto.avatarPreview.src;
 
     window.backend.saveData(function () {
       userDialog.classList.add('hidden');
