@@ -14,7 +14,6 @@
     var dragged = false;
 
     var mouseMoveHandler = function (moveEvt) {
-
       dragged = true;
 
       var shift = {
@@ -38,6 +37,7 @@
       if (dragged) {
         var clickPreventDefaultHandler = function (clickEvt) {
           clickEvt.preventDefault();
+
           dialogHandle.removeEventListener('click', clickPreventDefaultHandler);
         };
 

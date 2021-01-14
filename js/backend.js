@@ -1,4 +1,5 @@
 'use strict';
+
 window.backend = (function () {
   var TIMEOUT_IN_MS = 10000;
 
@@ -15,10 +16,12 @@ window.backend = (function () {
 
   var makeRequest = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
+
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
       var error;
+
       switch (xhr.status) {
         case StatusCode.OK:
           onLoad(xhr.response);
@@ -49,17 +52,20 @@ window.backend = (function () {
     });
 
     xhr.timeout = TIMEOUT_IN_MS;
+
     return xhr;
   };
 
   var saveData = function (onLoad, onError, data) {
     var xhr = makeRequest(onLoad, onError);
+
     xhr.open('POST', Url.SAVE);
     xhr.send(data);
   };
 
   var loadData = function (onLoad, onError) {
     var xhr = makeRequest(onLoad, onError);
+
     xhr.open('GET', Url.LOAD);
     xhr.send();
   };

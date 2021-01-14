@@ -22,6 +22,7 @@ window.setup = (function () {
 
   var userNameInputChangeHandler = function () {
     var valueLength = userNameInput.value.length;
+
     if (!form.reportValidity() && valueLength < minNameLength) {
       userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов. Введите ещё ' + (minNameLength - valueLength) + ' симв.');
     } else if (!form.reportValidity() && valueLength > maxNameLength) {
@@ -35,11 +36,13 @@ window.setup = (function () {
 
   var wizardCoatClickHandler = function () {
     coatColor = window.colorize.colorizeElement(wizardCoat, wizardCoatColorInput, WIZARD_COAT_COLORS);
+
     window.similarWizards.updateWizards();
   };
 
   var wizardEyesClickHandler = function () {
     eyesColor = window.colorize.colorizeElement(wizardEyes, wizardEyesColorInput, WIZARD_EYES_COLORS);
+
     window.similarWizards.updateWizards();
   };
 
@@ -49,6 +52,7 @@ window.setup = (function () {
 
   var errorHandler = function (errorMessage) {
     var node = document.createElement('div');
+
     node.style.position = 'absolute';
     node.style.left = 0;
     node.style.right = 0;
@@ -70,6 +74,7 @@ window.setup = (function () {
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
+
     window.backend.saveData(function () {
       userDialog.classList.add('hidden');
     }, errorHandler, new FormData(form));

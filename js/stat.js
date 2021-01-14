@@ -18,16 +18,20 @@
 
   var renderCloud = function (ctx, color, cloudShift) {
     ctx.fillStyle = color;
+
     ctx.beginPath();
     ctx.moveTo(CLOUD_X + cloudShift, CLOUD_Y + ARC1_RADIUS + cloudShift);
+
     for (var i = 0; i < 6; i++) {
       ctx.arc(CLOUD_X + ARC1_RADIUS + i * ARC_SHIFT + cloudShift, CLOUD_Y + ARC1_RADIUS + cloudShift, ARC1_RADIUS, 0, Math.PI, true);
     }
+
     ctx.moveTo(CLOUD_X + CLOUD_WIDTH - ARC2_RADIUS + cloudShift, CLOUD_HEIGHT + CLOUD_Y - ARC2_RADIUS + cloudShift);
     ctx.arc(CLOUD_X + CLOUD_WIDTH - ARC2_RADIUS + cloudShift, CLOUD_HEIGHT + CLOUD_Y - ARC2_RADIUS + cloudShift, ARC2_RADIUS, 0, Math.PI / 2, false);
     ctx.moveTo(CLOUD_X + ARC2_RADIUS + cloudShift, CLOUD_HEIGHT + CLOUD_Y - ARC2_RADIUS + cloudShift);
     ctx.arc(CLOUD_X + ARC2_RADIUS + cloudShift, CLOUD_HEIGHT + CLOUD_Y - ARC2_RADIUS + cloudShift, ARC2_RADIUS, Math.PI / 2, Math.PI, false);
     ctx.closePath();
+
     ctx.fill();
     ctx.fillRect(CLOUD_X + cloudShift, CLOUD_Y + ARC1_RADIUS - 0.5 + cloudShift, CLOUD_WIDTH, CLOUD_HEIGHT - ARC2_RADIUS - ARC1_RADIUS + 0.5);
     ctx.fillRect(CLOUD_X + ARC2_RADIUS + cloudShift, CLOUD_HEIGHT + CLOUD_Y - ARC2_RADIUS + cloudShift, CLOUD_WIDTH - 2 * ARC2_RADIUS, ARC2_RADIUS);
@@ -56,6 +60,7 @@
     for (var i = 0; i < players.length; i++) {
       var coordX = CLOUD_X + 4 * GAP + i * (BAR_WIDTH + COLUMN_GAP);
       var namesCoordY = CLOUD_Y + CLOUD_HEIGHT - 1.5 * GAP;
+
       ctx.fillText(Math.round(times[i]), coordX, namesCoordY - TEXT_NAME_HEIGHT - GAP - ((BAR_HEIGHT * times[i]) / maxTime) - GAP);
       ctx.fillStyle = (players[i] === 'Вы') ? 'rgba(255, 0, 0, 1)' : 'hsl(240,' + window.randomize.getRandomNumber(100) + '%, 50%)';
       ctx.fillRect(coordX, namesCoordY - TEXT_NAME_HEIGHT - GAP, BAR_WIDTH, -((BAR_HEIGHT * times[i]) / maxTime));

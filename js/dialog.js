@@ -13,7 +13,9 @@
   var openUserDialog = function () {
     userDialog.classList.remove('hidden');
     similarWizardsDialog.classList.remove('hidden');
+
     window.similarWizards.updateWizards();
+
     setupClose.addEventListener('click', setupCloseClickHandler);
     document.addEventListener('keydown', userDialogEscPressHandler);
     wizardCoat.addEventListener('click', window.setup.wizardCoatClickHandler);
@@ -35,13 +37,14 @@
 
   var setupCloseClickHandler = function () {
     closeUserDialog();
+
     userDialog.removeAttribute('style');
   };
 
   var userDialogEscPressHandler = function (evt) {
     if (evt.key === 'Escape' && document.activeElement !== userNameInput) {
-      evt.preventDefault();
       userDialog.classList.add('hidden');
+
       userDialog.removeAttribute('style');
     }
   };
